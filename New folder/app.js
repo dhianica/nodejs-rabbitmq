@@ -2,8 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import moment from 'moment'
 import dotenv from 'dotenv'
-import console from './utils/console'
-import routes from './routes'
+import console from './utils/console.js'
+import routes from './routes/index.js'
 
 dotenv.config()
 const app = express()

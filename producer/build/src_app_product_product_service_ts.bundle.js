@@ -1,0 +1,1 @@
+"use strict";exports.id="src_app_product_product_service_ts",exports.ids=["src_app_product_product_service_ts"],exports.modules={"./src/app/product/product.service.ts"(){eval("\r\n\n\n//# sourceURL=webpack://typescript-first-app/./src/app/product/product.service.ts?")}}
