@@ -7,8 +7,7 @@ import * as path from 'path';
  * @param str string - params want to be convert
  * @returns string - string with camelCase
  */
-export const camelCase = (str: string): string =>
-    str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+export const camelCase = (str: string): string => {return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => {return chr.toUpperCase();});};
 /**
  * 
  * This is function for get last directory from path
@@ -16,8 +15,7 @@ export const camelCase = (str: string): string =>
  * @param currentDirectory string - params want to be get a last directory from path
  * @returns string - string name last directory 
  */
-export const getLastDirectory = (currentDirectory: string): string =>
-    path.basename(path.resolve(currentDirectory));
+export const getLastDirectory = (currentDirectory: string): string => {return path.basename(path.resolve(currentDirectory));};
 
 /**
  * 
@@ -27,9 +25,8 @@ export const getLastDirectory = (currentDirectory: string): string =>
  * @returns boolean - true if param dont have value, default false
  */
 export function isEmpty(param: any): boolean {
-    if (typeof param === 'object') return Object.keys(param).length < 1;
-    else if (Array.isArray(param)) return param.length < 1;
-    return false;
+  if (typeof param === 'object') {return Object.keys(param).length < 1;} else if (Array.isArray(param)) {return param.length < 1;}
+  return false;
 }
 
 /**
@@ -41,8 +38,8 @@ export function isEmpty(param: any): boolean {
  * @returns string - key from value you check
  */
 export function getEnumKeyByEnumValue(myEnum: any, enumValue: number | string): string {
-    let keys = Object.keys(myEnum).filter((x) => myEnum[x] == enumValue);
-    return keys.length > 0 ? keys[0] : '';
+  const keys = Object.keys(myEnum).filter((x) => {return myEnum[x] === enumValue;});
+  return keys.length > 0 ? keys[0] : '';
 }
 
 /**
@@ -52,8 +49,7 @@ export function getEnumKeyByEnumValue(myEnum: any, enumValue: number | string): 
  * @param arrs Array - data want to be convert to flatten
  * @returns Array - array with format flatten
  */
-export const flatten = <T>(arrs: Array<Array<T>>): Array<T> =>
-    ([] as Array<T>).concat(...arrs)
+export const flatten = <T>(arrs: Array<Array<T>>): Array<T> => {return ([] as Array<T>).concat(...arrs);};
 
 // /**
 //  *
@@ -64,40 +60,39 @@ export const flatten = <T>(arrs: Array<Array<T>>): Array<T> =>
 //  * @returns Array -> array with new format grouping
 //  */
 export function groupBy<K, V>(array: V[], grouper: (item: V) => K): Map<K, V[]> {
-    return array.reduce((store, item) => {
-        var key = grouper(item)
-        if (!store.has(key)) {
-            store.set(key, [item])
-        } else {
-            store.get(key)?.push(item)
-        }
-        return store
-    }, new Map<K, V[]>())
+  return array.reduce((store, item) => {
+    const key = grouper(item);
+    if (!store.has(key)) {
+      store.set(key, [item]);
+    } else {
+      store.get(key)?.push(item);
+    }
+    return store;
+  }, new Map<K, V[]>());
 }
 
 export function transformMap<K, V, R>(
-    source: Map<K, V>,
-    transformer: (value: V, key: K) => R
-) {
-    return new Map(
-        Array.from(source, v => [v[0], transformer(v[1], v[0])])
-    )
+  source: Map<K, V>,
+  transformer: (value: V, key: K) => R
+): Map<K,R>{
+  return new Map(
+    Array.from(source, v => {return [v[0], transformer(v[1], v[0])];})
+  );
 }
 
 export function mapToObj<T>(m: Map<string, T>): { [key: string]: T } {
-    return Array.from(m).reduce((obj: { [key: string]: T }, [key, value]) => {
-        obj[key] = value
-        return obj
-    }, {})
+  return Array.from(m).reduce((obj: { [key: string]: T }, [key, value]) => {
+    obj[key] = value;
+    return obj;
+  }, {});
 }
 
 export function mapToArray<K, V, R>(
-    m: Map<K, V>,
-    transformer: (key: K, item: V) => R
-) {
-    return Array.from(m.entries()).map(x =>
-        transformer(x[0], x[1])
-    )
+  m: Map<K, V>,
+  transformer: (key: K, item: V) => R
+): Array<R> {
+  return Array.from(m.entries()).map(x => {return transformer(x[0], x[1]);}
+  );
 }
 
 /**
@@ -109,5 +104,4 @@ export function mapToArray<K, V, R>(
  * @param step number - params step number row arithmatic want to be 
  * @returns number - array with range
  */
-export const range = (start: number, end: number, step: number = 1): Array<number> =>
-    [...Array(Math.ceil(end / step)).keys()].map(i => i * step + start)
+export const range = (start: number, end: number, step: number = 1): Array<number> => {return [...Array(Math.ceil(end / step)).keys()].map(i => {return i * step + start;});};

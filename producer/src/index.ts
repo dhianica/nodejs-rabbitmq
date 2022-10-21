@@ -7,9 +7,9 @@ import router from './app/app.routing';
 // Creates and configures an ExpressJS web server.
 class App {
   // ref to Express instance
-  express: express.Application;
+  public express: express.Application;
   // Run configuration methods on the Express instance.
-  constructor() {
+  public constructor() {
     this.express = express();
     this.middleware();
     this.routes();

@@ -2,11 +2,11 @@ import Route from '../core/route';
 import MessageController from './message.controller';
 
 class MessageRouter extends Route {
-  path = '/message';
+  public path = '/message';
   private controller = MessageController;
 
-  constructor(schemaName: string) {
-    super(schemaName);
+  public constructor(schemaName: string) {
+    super(schemaName, true);
     this.get('/', this.controller.getAllMessages);
   }
 }

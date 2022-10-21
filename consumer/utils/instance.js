@@ -1,8 +1,5 @@
 /* eslint-disable max-classes-per-file */
 import AMQPMessageBroker from './private'
 
-class AMQPInstance extends AMQPMessageBroker {}
-
-export default {
-  AMQPInstance,
-}
+// eslint-disable-next-line import/prefer-default-export
+export class IAMQPInstance extends AMQPMessageBroker {}

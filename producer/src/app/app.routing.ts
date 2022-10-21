@@ -26,19 +26,21 @@ class Router extends Configuration {
           const item = { name, value: v } as unknown as IConfiguration
           return item as IConfiguration
         }
-      }).forEach(x => this.addConfiguration(x as IConfiguration))
-    this.configuration().forEach((x: IConfiguration[]) => x.forEach(async ({ name, value }) => {
-      const path = Utils.setUrlRoute(this.path, value);
-      if (value.indexOf('routing') > 0) {
-        const fileRoute = (await import(`${value}`)).default;
-        const route = new fileRoute(Utils.setSchemaName(name));
-        this.router.use(path, route.router);
-      } else if (value.indexOf('schema') > 0) {
-        const schemaName = Utils.setSchemaName(name);
-        const typeSchema = (await import(`${value}`));
-        new Schema().setSchema(schemaName, typeSchema.schema)
-      }
-    }))
+      }).forEach(x => {return this.addConfiguration(x as IConfiguration)})
+    this.configuration().forEach((x: IConfiguration[]) => {
+      return x.forEach(async ({ name, value }) => {
+        const path = Utils.setUrlRoute(this.path, value);
+        if (value.indexOf('routing') > 0) {
+          const fileRoute = (await import(`${value}`)).default;
+          const route = new fileRoute(Utils.setSchemaName(name));
+          this.router.use(path, route.router);
+        } else if (value.indexOf('schema') > 0) {
+          const schemaName = Utils.setSchemaName(name);
+          const typeSchema = (await import(`${value}`));
+          new Schema().setSchema(schemaName, typeSchema.schema)
+        }
+      })
+    })
   }
 }
 

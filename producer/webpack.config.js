@@ -63,7 +63,7 @@ module.exports = {
               sync: true,
               jsc: {
                 parser: {
-                  syntax: "typescript",
+                  syntax: 'typescript',
                   jsx: false,
                   dynamicImport: true,
                   privateMethod: true,
@@ -75,10 +75,10 @@ module.exports = {
                   topLevelAwait: true,
                   importMeta: false
                 }, transform: null,
-                target: "es2020",
+                target: 'es2020',
                 loose: false,
                 externalHelpers: false,
-                //Requires v1.2.50 or upper and requires target to be es2016 or upper.
+                // Requires v1.2.50 or upper and requires target to be es2016 or upper.
                 keepClassNames: false
               }, minify: false
             }

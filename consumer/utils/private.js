@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import amqp from 'amqplib'
 import _ from 'lodash'
 
@@ -28,13 +29,20 @@ class AMQPMessageBroker {
     return this
   }
 
+  async consume(queue, msg, options = {}) {
+    if (!this.connection && !this.channel) {
+      await this.init()
+    }
+    this.channel.consume(queue, msg, options)
+  }
+
   /**
    * Send message to queue
    * @param {String} queue Queue name
    * @param {Object} msg Message as Buffer
    */
   async send(queue, msg) {
-    if (!this.connection) {
+    if (!this.connection && !this.channel) {
       await this.init()
     }
     await this.channel.assertQueue(queue, { durable: true })
@@ -46,7 +54,7 @@ class AMQPMessageBroker {
    * @param {Function} handler Handler that will be invoked with given message and acknowledge function (msg, ack)
    */
   async subscribe(queue, handler) {
-    if (!this.connection) {
+    if (!this.connection && !this.channel) {
       await this.init()
     }
     if (this.queues[queue]) {

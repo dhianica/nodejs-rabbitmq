@@ -13,10 +13,10 @@ function errorLogToTransport(logObject: ILogObject): void {
 }
 
 function debugLogToTransport(logObject: ILogObject): void {
-  appendFileSync('./logs/debug.log', JSON.stringify(logObject) + "\n");
+  appendFileSync('./logs/debug.log', JSON.stringify(logObject) + '\n');
 }
 
-const logger: Logger = new Logger({ name: "console", overwriteConsole: true, minLevel:'info'});
+const logger: Logger = new Logger({ name: 'console', overwriteConsole: true, minLevel:'info'});
 logger.attachTransport(
   {
     silly: logToTransport,

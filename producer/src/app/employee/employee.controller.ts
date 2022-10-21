@@ -9,7 +9,7 @@ class EmployeeController {
       title: 'Senior'
     }
   ];
-  getAllEmployees = (
+  public getAllEmployees = (
     req: express.Request,
     res: express.Response,
     next: any
@@ -21,7 +21,7 @@ class EmployeeController {
     }
   };
 
-  createAEmployee = (
+  public createAEmployee = (
     req: express.Request,
     res: express.Response
   ): void => {

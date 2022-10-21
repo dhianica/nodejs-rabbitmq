@@ -16,32 +16,27 @@ module.exports = {
     'browser': true,
     'node': true
   },
-  "parser": "@typescript-eslint/parser",
+  'parser': '@typescript-eslint/parser',
   'plugins': ['@typescript-eslint'],
-  "extends": ["plugin:sonarjs/recommended"],
+  'extends': ['plugin:sonarjs/recommended'],
   'root': true,
   'rules': {
     '@typescript-eslint/consistent-type-definitions': 'warn',
     '@typescript-eslint/dot-notation': 'off',
-    "@typescript-eslint/no-explicit-any": "off",
+    '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-function-return-type': [
       'warn',
       {
-        'allowExpressions': false,
-        'allowTypedFunctionExpressions': false,
-        'allowHigherOrderFunctions': false,
-        'allowDirectConstAssertionInArrowFunctions': true,
+        'allowHigherOrderFunctions': true,
         'allowConciseArrowFunctionExpressionsStartingWithVoid': true
       }
     ],
-    "@typescript-eslint/explicit-member-accessibility": "off",
+    '@typescript-eslint/explicit-member-accessibility': 'off',
     '@typescript-eslint/explicit-module-boundary-types': [
       'warn',
       {
         'allowArgumentsExplicitlyTypedAsAny': true,
-        'allowDirectConstAssertionInArrowFunctions': true,
-        'allowHigherOrderFunctions': false,
-        'allowTypedFunctionExpressions': false
+        'allowHigherOrderFunctions': true
       }
     ],
     '@typescript-eslint/indent': ['error', 2],
@@ -59,7 +54,6 @@ module.exports = {
       }
     ],
     '@typescript-eslint/member-ordering': 'warn',
-    '@typescript-eslint/naming-convention': 'warn',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-empty-interface': 'warn',
     '@typescript-eslint/no-inferrable-types': [
@@ -79,8 +73,6 @@ module.exports = {
     '@typescript-eslint/no-unused-expressions': 'warn',
     '@typescript-eslint/prefer-for-of': 'warn',
     '@typescript-eslint/prefer-function-type': 'warn',
-    '@typescript-eslint/quotes': ['warn', 'single'],
-    '@typescript-eslint/semi': ['warn', 'always'],
     '@typescript-eslint/type-annotation-spacing': 'warn',
     '@typescript-eslint/typedef': [
       'warn',
@@ -116,7 +108,7 @@ module.exports = {
     'max-len': [
       'warn',
       {
-        'code': 140
+        'code': 200
       }
     ],
     'no-bitwise': 'warn',
@@ -128,7 +120,6 @@ module.exports = {
     'no-fallthrough': 'warn',
     'no-multiple-empty-lines': 'warn',
     'no-new-wrappers': 'warn',
-    'no-shadow': 'warn',
     'no-throw-literal': 'warn',
     'no-trailing-spaces': 'off',
     'no-undef-init': 'warn',
@@ -146,7 +137,6 @@ module.exports = {
     'prefer-const': 'warn',
     'quotes': ['error', 'single', { 'allowTemplateLiterals': true }],
     'radix': 'warn',
-    'semi': 'warn',
     'sonarjs/no-collapsible-if': 'warn',
     'spaced-comment': [
       'warn',
@@ -156,12 +146,12 @@ module.exports = {
       }
     ]
   },
-  "overrides": [
+  'overrides': [
     {
       // enable the rule specifically for TypeScript files
-      "files": ["*.ts"],
-      "rules": {
-        "@typescript-eslint/explicit-member-accessibility": "error"
+      'files': ['*.ts'],
+      'rules': {
+        '@typescript-eslint/explicit-member-accessibility': 'error'
       }
     }
   ]
