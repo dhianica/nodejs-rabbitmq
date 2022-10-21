@@ -11,7 +11,7 @@ class MessageController {
     console.log(`Run Send Message to Client ${JSON.stringify(req.query)}`)
     try {
       const amqp = new IAMQPInstance()
-      await amqp.send('logs', `${req.query.message}`)
+      await amqp.send('logs', `${req.query.message}`, { durable: false, autoDelete: true })
       res.send({ status: '0000', message: 'OK' })
     } catch (err) {
       next(err)

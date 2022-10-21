@@ -8,7 +8,7 @@ function logToTransport(logObject: ILogObject): void {
 }
 
 function errorLogToTransport(logObject: ILogObject): void {
-  const logs = `[${dayjs(logObject.date).format('YYYY-MM-DD HH:mm:ss')}] -> ${logObject.logLevel} : ${logObject.logLevel}`;
+  const logs = `[${dayjs(logObject.date).format('YYYY-MM-DD HH:mm:ss')}] -> ${logObject.logLevel} : ${logObject.argumentsArray.toString()}`;
   appendFileSync('./logs/error.log', logs + '\n');
 }
 
@@ -16,7 +16,7 @@ function debugLogToTransport(logObject: ILogObject): void {
   appendFileSync('./logs/debug.log', JSON.stringify(logObject) + '\n');
 }
 
-const logger: Logger = new Logger({ name: 'console', overwriteConsole: true, minLevel:'info'});
+const logger: Logger = new Logger({ minLevel:'info', displayLoggerName: false, displayFunctionName: false });
 logger.attachTransport(
   {
     silly: logToTransport,

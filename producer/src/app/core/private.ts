@@ -14,31 +14,31 @@ class AMQPMessageBroker {
   public queues: Array<any> = [];
   public connection: amqp.Connection | undefined;
   public channel: amqp.Channel | undefined;
-  
+
   /**
    * Initialize connection to rabbitMQ
    */
-  public async init(): Promise<AMQPMessageBroker>{
+  public async init(): Promise<AMQPMessageBroker> {
     if (!this.connection && !this.channel) {
       this.connection = await amqp.connect(process.env.RABBITMQ_URL || 'amqp://localhost');
       this.channel = await this.connection.createChannel();
     }
     return this;
   }
-
   /**
    * Send message to queue
    * @param {String} queue Queue name
    * @param {Object} msg Message as Buffer
    */
-  public async send(queue?: string | undefined, msg?: string | undefined): Promise<void> {
+  public async send(queue?: string | undefined, msg?: string | undefined, options?: amqp.Options.AssertQueue): Promise<void> {
     if (!this.connection && !this.channel) {
       await this.init();
     }
 
-    if (!queue) {throw new Error(`${ErrorMessage.NOT_DECLARED} the Queue`);};
-    if (!msg) {msg = '';};
-    await this.channel?.assertQueue(queue, { durable: true });
+    if (!queue) { throw new Error(`${ErrorMessage.NOT_DECLARED} the Queue`); };
+    if (!msg) { msg = ''; };
+    if (!options) { options = { durable: true } }
+    await this.channel?.assertQueue(queue, options);
     this.channel?.sendToQueue(queue, Buffer.from(msg, 'utf-8'));
   }
 
@@ -51,9 +51,9 @@ class AMQPMessageBroker {
       await this.init();
     }
 
-    if (!queue) {throw new Error(`${ErrorMessage.NOT_DECLARED} the Queue`);};
+    if (!queue) { throw new Error(`${ErrorMessage.NOT_DECLARED} the Queue`); };
     if (this.queues[queue]) {
-      const existingHandler = _.find(this.queues[queue], (h) => {return h === handler;});
+      const existingHandler = _.find(this.queues[queue], (h) => { return h === handler; });
       if (existingHandler) {
         return await this.unsubscribe(queue, existingHandler);
       }
@@ -66,15 +66,15 @@ class AMQPMessageBroker {
     this.channel?.consume(
       queue,
       async (msg: any): Promise<void> => {
-        const ack = _.once(() => {return this.channel?.ack(msg);});
-        this.queues[queue].forEach((h: any) => {return h(msg, ack);});
+        const ack = _.once(() => { return this.channel?.ack(msg); });
+        this.queues[queue].forEach((h: any) => { return h(msg, ack); });
       }
     );
     return await this.unsubscribe(queue, handler);
   }
 
   public async unsubscribe(queue?: string | any, handler?: any): Promise<void> {
-    if (!queue) {throw new Error(`${ErrorMessage.NOT_DECLARED} the Queue`);};
+    if (!queue) { throw new Error(`${ErrorMessage.NOT_DECLARED} the Queue`); };
     _.pull((this.queues[queue] as any[]), handler);
   }
 }

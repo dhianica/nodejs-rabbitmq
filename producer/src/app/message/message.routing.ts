@@ -6,7 +6,7 @@ class MessageRouter extends Route {
   private controller = MessageController;
 
   public constructor(schemaName: string) {
-    super(schemaName, true);
+    super(schemaName, false);
     this.get('/', this.controller.getAllMessages);
   }
 }

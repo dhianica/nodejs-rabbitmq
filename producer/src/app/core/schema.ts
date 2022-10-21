@@ -13,12 +13,12 @@ class Schema {
     return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
       try {
         Logger.info(`Run Validation Request`);
+        Logger.info(`${JSON.stringify(req.body)}`);
         if (!isEmpty(req.body)) {
-          Logger.info(`Validation Request -> ${JSON.stringify(req.body)}`);
           const isValid = await ajv.validate(schemaName, req.body);
           if (!isValid) {
             const errorMessages = ajv.errorsText()
-            Logger.info(`Validation Request Failed -> ${errorMessages}`);
+            Logger.info(`Validation Request Failed \t-> ${errorMessages}`);
             res.status(HttpStatusCode.BAD_REQUEST).json(errorMessages);
           } else {
             Logger.info(`Validation Request Success`);
@@ -26,16 +26,16 @@ class Schema {
           }
         } else {
           const message = `Body ${ErrorMessage.REQUIRED}!`
-          Logger.info(`Validation Failed -> ${message}`);
-          Logger.error(`Validation Failed -> ${message}`);
+          Logger.info(`Validation Request Failed \t-> ${message}`);
+          Logger.error(`Validation Request Failed \t-> ${message}`);
           res.status(HttpStatusCode.BAD_REQUEST).json({
             message
           });
         }
       } catch (error) {
         const message = `${ErrorMessage.NOT_HANDLED}!`
-        Logger.info(`Validation Failed -> ${message}`);
-        Logger.error(`Validation Failed -> ${message}`);
+        Logger.info(`Validation Request Failed \t-> ${message}`);
+        Logger.error(`Validation Request Failed \t-> ${message}`);
         res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
           message: error
         })
