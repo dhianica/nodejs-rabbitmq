@@ -33,7 +33,8 @@ class AMQPMessageBroker {
     if (!this.connection && !this.channel) {
       await this.init()
     }
-    this.channel.consume(queue, msg, options)
+    await this.channel.assertQueue(queue, { durable: false })
+    await this.channel.consume(queue, msg, options)
   }
 
   /**
@@ -45,7 +46,7 @@ class AMQPMessageBroker {
     if (!this.connection && !this.channel) {
       await this.init()
     }
-    await this.channel.assertQueue(queue, { durable: true })
+    await this.channel.assertQueue(queue, { durable: false })
     this.channel.sendToQueue(queue, Buffer.from(msg))
   }
 
