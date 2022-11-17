@@ -1,4 +1,5 @@
 # nodejs-rabbitmq
+<<<<<<< HEAD
 This application for example producer and consumer nodejs rabbitmq
 
 directory producer is for send data to server rabbitmq
@@ -11,3 +12,6 @@ request api to application producer
 example request
 url : http://127.0.0.1:54000/api/message
 body: { "message" : "Hello World", }
+=======
+This application for example produce and consumer nodejs rabbitmq
+>>>>>>> parent of 74cee4e (Initialization application)
